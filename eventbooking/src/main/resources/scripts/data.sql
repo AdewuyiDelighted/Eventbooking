@@ -1,6 +1,7 @@
 SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE TABLE event;
 truncate table user ;
+truncate table attendee;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
@@ -19,3 +20,7 @@ insert into event(id,name,date,available_attendees_count,event_description,curre
 insert into user(id,name,password,email)  values
 (20,'Qudus','qudus@12','adeshina1@gmail'),
 (21,'Ope','ope@12','ope11@gmail');
+
+insert into attendee(id,name,email,event_name)  values
+(30,'lope','lope1@gmail','SWIT'),
+(31,'layo','Layo13@gmail','SWIT');

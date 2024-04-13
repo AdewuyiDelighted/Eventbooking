@@ -4,6 +4,7 @@ import com.assigment.eventbooking.data.models.Attendee;
 import com.assigment.eventbooking.data.models.User;
 import com.assigment.eventbooking.dto.requests.CreateAttendeeRequest;
 import com.assigment.eventbooking.dto.requests.ReserveTicketRequest;
+import com.assigment.eventbooking.exceptions.EventDoesNotExistException;
 import com.assigment.eventbooking.exceptions.UserDoesntExistException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class AttendeeServiceTest {
 
     @Test
     @Sql(scripts = "/scripts/data.sql")
-    public void testCreateAttendee() throws UserDoesntExistException {
+    public void testCreateAttendee() throws UserDoesntExistException, EventDoesNotExistException {
         CreateAttendeeRequest createAttendeeRequest = new CreateAttendeeRequest();
         User user = userService.findUserByEmail("ope11@gmail");
         createAttendeeRequest.setName(user.getName());

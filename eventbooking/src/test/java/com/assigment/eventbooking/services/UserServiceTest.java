@@ -26,19 +26,22 @@ public class UserServiceTest {
     EventService eventService;
 
     @Test
-    public void testThatUserCanRegister() {
+    public void testThatUserCanRegister() throws UserAlreadyExistException, InvalidInputException, PasswordTooWeakException {
         RegisterRequest registerRequest = new RegisterRequest();
-        registerRequest.setName("Delighted");
-        registerRequest.setPassword("Delighted@123");
-        registerRequest.setEmail("deborahdelighted5@gmail.com");
+        registerRequest.setName("lope");
+        registerRequest.setPassword("Debby@123");
+        registerRequest.setEmail("shetr5@gmail.com");
         UserRegisterResponse response = userService.register(registerRequest);
+        System.out.println(response.getMessage());
         assertThat(response).isNotNull();
     }
-
     @Test
     @Sql(scripts = "/scripts/data.sql")
-    public void userCanSearchForEvent() throws EventDoesNotExistException {
-        EventSearchResponse eventSearchResponse = userService.searchForEvent("SWIT");
+    public void userCanSearchForEvent() throws EventDoesNotExistException, UserDoesntExistException {
+        SearchEventRequest searchEventRequest = new SearchEventRequest();
+        searchEventRequest.setEventName("SWIT");
+        searchEventRequest.setUserEmail("ope11@gmail");
+        EventSearchResponse eventSearchResponse = userService.searchForEvent(searchEventRequest);
         assertThat(eventSearchResponse).isNotNull();
     }
 
@@ -55,7 +58,7 @@ public class UserServiceTest {
 
     @Test
     @Sql(scripts = "/scripts/data.sql")
-    public void testThatUserCreateEvent() throws UserDoesntExistException, EventCategoryNotAvailableException {
+    public void testThatUserCreateEvent() throws UserDoesntExistException, EventCategoryNotAvailableException, EventExistException, InvalidDateFormatException, InvalidDateException, AttendeeCountException, InvalidInputException {
         CreateEventRequest createEventRequest = new CreateEventRequest();
         createEventRequest.setName("Karoke party");
         createEventRequest.setAttendeesCount(30);
@@ -87,7 +90,7 @@ public class UserServiceTest {
 
     @Test
     @Sql(scripts = "/scripts/data.sql")
-    public void testThatUserCanCancelAReservation() throws EventDoesNotExistException, UserDoesntExistException, EventNotBookedException, OverLappedEventDateException, NoAvailableSpaceException, AttendeeNotFoundException {
+    public void testThatUserCanCancelAReservation() throws EventDoesNotExistException, UserDoesntExistException, EventNotBookedException, OverLappedEventDateException, NoAvailableSpaceException, AttendeeNotFoundException, UserHasReservedTicketException {
         CancelReservationRequest cancelReservationRequest = new CancelReservationRequest();
         ReserveTicketRequest reserveTicketRequest = new ReserveTicketRequest();
         reserveTicketRequest.setAttendeeEmail("adeshina1@gmail");
@@ -98,6 +101,8 @@ public class UserServiceTest {
         CancelReservationResponse cancelReservationResponse = userService.cancelReservation(cancelReservationRequest);
         assertThat(cancelReservationResponse).isNotNull();
     }
+
+
 
 
 }

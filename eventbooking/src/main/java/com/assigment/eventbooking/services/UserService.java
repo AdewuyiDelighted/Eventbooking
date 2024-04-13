@@ -1,7 +1,6 @@
 package com.assigment.eventbooking.services;
 
 import com.assigment.eventbooking.data.models.BookedEvent;
-import com.assigment.eventbooking.data.models.Event;
 import com.assigment.eventbooking.data.models.Ticket;
 import com.assigment.eventbooking.data.models.User;
 import com.assigment.eventbooking.dto.requests.*;
@@ -11,13 +10,14 @@ import com.assigment.eventbooking.dto.responses.EventSearchResponse;
 import com.assigment.eventbooking.dto.responses.UserRegisterResponse;
 import com.assigment.eventbooking.exceptions.*;
 
+import java.net.URI;
 import java.util.List;
 
 public interface UserService {
 
-    UserRegisterResponse register(RegisterRequest registerRequest);
+    UserRegisterResponse register(RegisterRequest registerRequest) throws UserAlreadyExistException, InvalidInputException, PasswordTooWeakException;
 
-    EventSearchResponse searchForEvent(String eventName) throws EventDoesNotExistException;
+    EventSearchResponse searchForEvent(SearchEventRequest searchEventRequest) throws EventDoesNotExistException, UserDoesntExistException;
 
     User findUserByEmail(String email) throws UserDoesntExistException;
 
@@ -25,9 +25,9 @@ public interface UserService {
 
     List<BookedEvent> viewAllBookEvents(String email) throws UserDoesntExistException;
 
-    CancelReservationResponse cancelReservation(CancelReservationRequest cancelReservationRequest) throws UserDoesntExistException, EventDoesNotExistException, EventNotBookedException, OverLappedEventDateException, AttendeeNotFoundException;
+    CancelReservationResponse cancelReservation(CancelReservationRequest cancelReservationRequest) throws UserDoesntExistException, EventDoesNotExistException, EventNotBookedException, OverLappedEventDateException, AttendeeNotFoundException, UserHasReservedTicketException;
 
 
-    CreateEventResponse createEvent(CreateEventRequest createEventRequest) throws EventCategoryNotAvailableException, UserDoesntExistException;
+    CreateEventResponse createEvent(CreateEventRequest createEventRequest) throws EventCategoryNotAvailableException, UserDoesntExistException, EventExistException, InvalidDateFormatException, InvalidDateException, AttendeeCountException, InvalidInputException;
 }
 
