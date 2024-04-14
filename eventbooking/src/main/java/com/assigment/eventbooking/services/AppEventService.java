@@ -23,6 +23,7 @@ import static com.assigment.eventbooking.utils.Verification.dateChecker;
 public class AppEventService implements EventService {
     private final EventRepository eventRepository;
     private final Validator validator;
+
     @Override
     public CreateEventResponse createEvent(CreateEventRequest createEventRequest) throws EventCategoryNotAvailableException, EventExistException, InvalidDateFormatException, InvalidDateException, AttendeeCountException, InvalidInputException {
         if (!isEventCreated(createEventRequest.getName())) {
@@ -84,7 +85,7 @@ public class AppEventService implements EventService {
     private Event checkAttendee(String eventName, Attendee attendee) throws EventDoesNotExistException, UserHasReservedTicketException, AttendeeNotFoundException {
         Event event = findEventByName(eventName);
         for (Attendee attendee1 : event.getAttendees()) {
-            if (attendee1.equals(attendee))
+            if (attendee1.getEmail().equals(attendee.getEmail()))
                 return event;
         }
         throw new AttendeeNotFoundException("User Did Not Have A Reserved Space");

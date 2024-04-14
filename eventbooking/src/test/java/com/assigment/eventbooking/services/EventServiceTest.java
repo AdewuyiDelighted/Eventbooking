@@ -37,9 +37,10 @@ public class EventServiceTest {
 
 
     @AfterEach
-    public void setUp(){
-        attendeeRepository.deleteAll();
+    public void setUp() {
         eventRepository.deleteAll();
+        attendeeRepository.deleteAll();
+
 
 
     }
@@ -75,12 +76,11 @@ public class EventServiceTest {
 
     @Test
     @Sql(scripts = "/scripts/data.sql")
-
-    public void testWhenUserGetTicketWhenTheyReserveSpace() throws AttendeeNotFoundException, EventDoesNotExistException, NoAvailableSpaceException {
+    public void
+    testWhenUserGetTicketWhenTheyReserveSpace() throws AttendeeNotFoundException, EventDoesNotExistException, NoAvailableSpaceException {
         Attendee attendee = attendeeService.findAttendeeByEmail("Layo13@gmail", "SWIT");
         Ticket ticket = eventService.reserveTicket(attendee, "SWIT");
         assertEquals("SWIT", ticket.getEventName());
-
     }
 
     @Test
@@ -92,9 +92,9 @@ public class EventServiceTest {
         createAttendeeRequest.setEventName("SWIT");
         createAttendeeRequest.setName("Ope");
         Attendee attendee = attendeeService.createAttendee(createAttendeeRequest);
-        eventService.reserveTicket(attendee,event.getName());
-        eventService.cancelReservation(attendee,"SWIT");
-        assertThrows(AttendeeNotFoundException.class, () -> attendeeService.findAttendeeByEmail(attendee.getEmail(),"SWIT"));
+        eventService.reserveTicket(attendee, event.getName());
+        eventService.cancelReservation(attendee, "SWIT");
+        assertThrows(AttendeeNotFoundException.class, () -> attendeeService.findAttendeeByEmail(attendee.getEmail(), "SWIT"));
     }
 
 

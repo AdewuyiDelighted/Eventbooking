@@ -29,10 +29,14 @@ public class AppAttendeeService implements AttendeeService {
     @Override
     public Attendee findAttendeeByEmail(String email, String eventName) throws AttendeeNotFoundException {
         Attendee attendee = attendeeRepository.findAttendeeByEmail(email);
-        if (attendee.getEventName().equals(eventName)) {
-            return attendee;
+        if (attendee != null) {
+            if (attendee.getEventName().equals(eventName)) {
+                return attendee;
+            }
         }
         throw new AttendeeNotFoundException("Sorry Reservation Wasn't Made For This Event");
     }
-
 }
+
+
+//                throw new AttendeeNotFoundException("Sorry Reservation Wasn't Made For This Event");

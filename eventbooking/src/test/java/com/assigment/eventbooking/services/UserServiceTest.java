@@ -52,7 +52,6 @@ public class UserServiceTest {
         reserveTicketRequest.setAttendeeEmail("adeshina1@gmail");
         reserveTicketRequest.setEventName("SWIT");
         Ticket ticket = userService.reserveTicket(reserveTicketRequest);
-        System.out.println(ticket.getTicketNumber());
         assertThat(ticket).isNotNull();
     }
 

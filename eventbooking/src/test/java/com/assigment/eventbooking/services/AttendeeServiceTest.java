@@ -3,7 +3,6 @@ package com.assigment.eventbooking.services;
 import com.assigment.eventbooking.data.models.Attendee;
 import com.assigment.eventbooking.data.models.User;
 import com.assigment.eventbooking.dto.requests.CreateAttendeeRequest;
-import com.assigment.eventbooking.dto.requests.ReserveTicketRequest;
 import com.assigment.eventbooking.exceptions.EventDoesNotExistException;
 import com.assigment.eventbooking.exceptions.UserDoesntExistException;
 import org.junit.jupiter.api.Test;

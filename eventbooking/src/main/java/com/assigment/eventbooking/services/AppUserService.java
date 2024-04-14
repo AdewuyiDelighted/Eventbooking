@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import static com.assigment.eventbooking.utils.Verification.passwordChecker;
+
 @Service
 @AllArgsConstructor
 public class AppUserService implements UserService {
@@ -40,7 +42,7 @@ public class AppUserService implements UserService {
     @Override
     public UserRegisterResponse register(RegisterRequest registerRequest) throws UserAlreadyExistException, InvalidInputException, PasswordTooWeakException {
         UserRegisterResponse userRegisterResponse = new UserRegisterResponse();
-        Verification.passwordChecker(registerRequest.getPassword());
+        passwordChecker(registerRequest.getPassword());
         bcrypt(registerRequest);
         if (!userExist(registerRequest.getEmail())) {
             User user = modelMapper.map(registerRequest,User.class);

@@ -35,7 +35,7 @@ public class Event {
 
     private int currentAttendeeCount = 0;
 
-    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.PERSIST,CascadeType.MERGE},orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.DETACH},orphanRemoval = true)
     private List<Attendee> attendees;
 
 
